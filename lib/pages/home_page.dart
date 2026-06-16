@@ -61,7 +61,11 @@ class _HomePageState extends State<HomePage> {
 
   void equalPressed() {
     setState(() {
-      String expression = userInput.replaceAll("x", "*").replaceAll("÷", "/");
+      String exp1 = userInput.replaceAllMapped(
+        RegExp(r'(\d+\.?\d*)%'),
+        (match) => "(${match.group(1)}/100)",
+      );
+      String expression = exp1.replaceAll("x", "*").replaceAll("÷", "/");
       GrammarParser p = GrammarParser();
       Expression exp = p.parse(expression);
       ContextModel cm = ContextModel();
