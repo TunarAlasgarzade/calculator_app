@@ -61,7 +61,8 @@ class _HomePageState extends State<HomePage> {
 
   void equalPressed() {
     setState(() {
-      String exp1 = userInput.replaceAllMapped(
+      try {
+        String exp1 = userInput.replaceAllMapped(
         RegExp(r'(\d+\.?\d*)%'),
         (match) => "(${match.group(1)}/100)",
       );
@@ -73,6 +74,10 @@ class _HomePageState extends State<HomePage> {
       resultColor = Colors.green;
       inputFontSize = 30;
       result = eval % 1 == 0 ? eval.toInt().toString() : double.parse(eval.toStringAsFixed(10)).toString();
+      } catch (e) {
+          result = "Error";
+          resultColor = Colors.red;
+        }
     });
   }
 
